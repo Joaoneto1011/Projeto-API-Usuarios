@@ -64,4 +64,19 @@ public class UsuarioService {
         }
         usuarioRepository.deleteById(id);
     }
+
+    // ============================
+    // ATUALIZAR USUARIO POR ID
+    // ============================
+    public Usuario atualizar(Long id, Usuario usuarioAtualizado) {
+
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+
+        usuario.setNome(usuarioAtualizado.getNome());
+        usuario.setEmail(usuarioAtualizado.getEmail());
+        usuario.setSenha(usuarioAtualizado.getSenha());
+
+        return usuarioRepository.save(usuario);
+    }
 }
