@@ -2,6 +2,8 @@ package com.projetoapi.services;
 
 import com.projetoapi.dominio.Role;
 import com.projetoapi.dominio.Usuario;
+import com.projetoapi.excecoes.EmailJaCadastradoException;
+import com.projetoapi.excecoes.UsuarioNaoEncontradoException;
 import com.projetoapi.repositorios.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class UsuarioService {
 
         // Verificando se já existe usuário com o mesmo email
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
-            throw new RuntimeException("Email já cadastrado.");
+            throw new EmailJaCadastradoException("Email já cadastrado.");
         }
 
         // Define role padrão
@@ -37,7 +39,7 @@ public class UsuarioService {
     // ============================
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado."));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado."));
     }
 
     // ============================
@@ -52,7 +54,7 @@ public class UsuarioService {
     // ============================
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
     }
 
     // ============================
@@ -60,7 +62,7 @@ public class UsuarioService {
     // ============================
     public void deletar(Long id) {
         if (!usuarioRepository.existsById(id)) {
-            throw new RuntimeException("Usuario não encontrado.");
+            throw new UsuarioNaoEncontradoException("Usuario não encontrado.");
         }
         usuarioRepository.deleteById(id);
     }
@@ -71,7 +73,7 @@ public class UsuarioService {
     public Usuario atualizar(Long id, Usuario usuarioAtualizado) {
 
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
 
         usuario.setNome(usuarioAtualizado.getNome());
         usuario.setEmail(usuarioAtualizado.getEmail());

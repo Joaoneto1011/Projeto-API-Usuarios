@@ -8,26 +8,35 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "usuarios")
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario {
+
+    public Usuario(String nome, String email, String senha, Role role) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.role = role;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
+    @Setter
     @Column(nullable = false, length = 100)
     private String nome;
 
+    @Setter
     @Column(unique = true, nullable = false, length = 150)
     private String email;
 
+    @Setter
     @Column(nullable = false)
     private String senha;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
