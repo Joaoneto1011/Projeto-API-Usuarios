@@ -3,6 +3,7 @@ package com.projetoapi.excecoes;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -39,6 +40,29 @@ public class ManipuladorDeExcecoesGlobal {
         );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
+
+    // 400 - Erro de validação
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<RespostaDeErro> handleValidacao(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request) {
+
+        String mensagem = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(erro -> erro.getField() + ": " + erro.getDefaultMessage())
+                .reduce((msg1, msg2) -> msg1 + ", " + msg2)
+                .orElse("Erro de validação");
+
+        RespostaDeErro erro = new RespostaDeErro(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                mensagem,
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
     // 500 - Erro inesperado

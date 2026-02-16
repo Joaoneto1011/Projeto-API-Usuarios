@@ -2,6 +2,8 @@ package com.projetoapi.services;
 
 import com.projetoapi.dominio.Role;
 import com.projetoapi.dominio.Usuario;
+import com.projetoapi.dto.UsuarioRequestDTO;
+import com.projetoapi.dto.UsuarioResponseDTO;
 import com.projetoapi.excecoes.EmailJaCadastradoException;
 import com.projetoapi.excecoes.UsuarioNaoEncontradoException;
 import com.projetoapi.repositorios.UsuarioRepository;
@@ -21,32 +23,47 @@ public class UsuarioService {
     // =============================
     // CADASTRAR USUARIO
     // =============================
-    public Usuario cadastrarUsuario(Usuario usuario) {
+    public UsuarioResponseDTO cadastrarUsuario(UsuarioRequestDTO usuarioDTO) {
 
         // Verificando se já existe usuário com o mesmo email
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+        if (usuarioRepository.existsByEmail(usuarioDTO.getEmail())) {
             throw new EmailJaCadastradoException("Email já cadastrado.");
         }
+
+        // Conversão manual de DTO para entidade
+        Usuario usuario = new Usuario();
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setSenha(usuarioDTO.getSenha());
 
         // Define role padrão
         usuario.setRole(Role.CLIENTE);
 
-        return usuarioRepository.save(usuario);
+        Usuario salvo = usuarioRepository.save(usuario);
+
+        return toResponseDTO(salvo);
     }
 
     // ============================
     // BUSCAR USUARIO POR ID
     // ============================
-    public Usuario buscarPorId(Long id) {
-        return usuarioRepository.findById(id)
+    public UsuarioResponseDTO buscarPorId(Long id) {
+
+        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado."));
+
+        return toResponseDTO(usuario);
     }
 
     // ============================
     // BUSCAR TODOS USUARIOS
     // ============================
-    public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
+    public List<UsuarioResponseDTO> listarTodos() {
+
+        return usuarioRepository.findAll()
+                .stream()
+                .map(this::toResponseDTO)
+                .toList();
     }
 
     // ============================
@@ -70,15 +87,31 @@ public class UsuarioService {
     // ============================
     // ATUALIZAR USUARIO POR ID
     // ============================
-    public Usuario atualizar(Long id, Usuario usuarioAtualizado) {
+    public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO usuarioDTO) {
 
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
 
-        usuario.setNome(usuarioAtualizado.getNome());
-        usuario.setEmail(usuarioAtualizado.getEmail());
-        usuario.setSenha(usuarioAtualizado.getSenha());
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setSenha(usuarioDTO.getSenha());
 
-        return usuarioRepository.save(usuario);
+        Usuario atualizado = usuarioRepository.save(usuario);
+
+        return toResponseDTO(atualizado);
+    }
+
+
+    // Método responsável por conversão entidade -> DTO
+    // Centraliza transformação e evita repetição de código
+    private UsuarioResponseDTO toResponseDTO(Usuario usuario) {
+
+        return new UsuarioResponseDTO(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getRole().name(),
+                usuario.getDataCriacao()
+        );
     }
 }

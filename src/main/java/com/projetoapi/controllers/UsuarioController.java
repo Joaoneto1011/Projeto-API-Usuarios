@@ -1,7 +1,11 @@
 package com.projetoapi.controllers;
 
 import com.projetoapi.dominio.Usuario;
+import com.projetoapi.dto.UsuarioRequestDTO;
+import com.projetoapi.dto.UsuarioResponseDTO;
 import com.projetoapi.services.UsuarioService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +25,16 @@ public class UsuarioController {
     // BUSCAR TODOS USUARIOS
     // ===========================
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarTodos() {
+    public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
+
         return ResponseEntity.ok(service.listarTodos());
     }
 
     // ===========================
     // BUSCAR USUARIO POR ID
+    // ===========================
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
@@ -36,9 +42,12 @@ public class UsuarioController {
     // CADASTRAR USUARIO
     // ===========================
     @PostMapping
-    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
-        Usuario usuarioSalvo = service.cadastrarUsuario(usuario);
-        return ResponseEntity.ok(usuarioSalvo);
+    public ResponseEntity<UsuarioResponseDTO> cadastrar(
+            @Valid @RequestBody UsuarioRequestDTO usuarioDTO) {
+
+        UsuarioResponseDTO response = service.cadastrarUsuario(usuarioDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // ===========================
@@ -51,9 +60,10 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioResponseDTO> atualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody UsuarioRequestDTO usuarioDTO) {
 
-        Usuario atualizado = service.atualizar(id, usuario);
-        return ResponseEntity.ok(atualizado);
+        return ResponseEntity.ok(service.atualizar(id, usuarioDTO));
     }
 }

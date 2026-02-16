@@ -25,11 +25,11 @@ public class Usuario {
     private Long id;
 
     @Setter
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private String nome;
 
     @Setter
-    @Column(unique = true, nullable = false, length = 150)
+    @Column(unique = true, nullable = false, length = 50)
     private String email;
 
     @Setter
