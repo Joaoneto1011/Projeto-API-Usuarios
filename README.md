@@ -44,53 +44,36 @@ Database (H2)
 
 ### 📂 Estrutura de Pacotes
 
+```
 com.projetoapi
-
+│
 ├── controllers
-
- └── UsuarioController
-===
-
+│   └── UsuarioController
+│
 ├── services
-
- └── UsuarioService
-===
-
+│   └── UsuarioService
+│
 ├── repositorios
-
-  └── UsuarioRepository
-===
-
+│   └── UsuarioRepository
+│
 ├── dominio
-
- ├── Usuario
-
-  └── Role (Enum)
-===
-
+│   ├── Usuario
+│   └── Role (Enum)
+│
 ├── dto
-     
-   ├── UsuarioRequestDTO
-
-   └── UsuarioResponseDTO
-===
-
+│   ├── UsuarioRequestDTO
+│   └── UsuarioResponseDTO
+│
 ├── excecoes
-
-   ├── UsuarioNaoEncontradoException
-
-   ├── EmailJaCadastradoException
-
-   ├── RespostaDeErro
-
-   └── ManipuladorDeExcecoesGlobal
-===
-
+│   ├── UsuarioNaoEncontradoException
+│   ├── EmailJaCadastradoException
+│   ├── RespostaDeErro
+│   └── ManipuladorDeExcecoesGlobal
+│
 └── ProjetoapiApplication
-
+```
 
 ---
-
 
 ### 🔎 Responsabilidade de cada camada
 
