@@ -27,11 +27,17 @@ Projeto desenvolvido com foco em **portfólio profissional**, demonstrando organ
 O projeto segue o padrão de arquitetura em camadas:
 
 Controller
+
    ↓
+   
 Service
+
    ↓
+   
 Repository
+
    ↓
+   
 Database (H2)
 
 ---
@@ -39,41 +45,42 @@ Database (H2)
 ### 📂 Estrutura de Pacotes
 
 com.projetoapi
-│
+
 ├── controllers
 
-│   └── UsuarioController
-│
+ └── UsuarioController
+ 
 ├── services
 
-│   └── UsuarioService
-│
+ └── UsuarioService
+ 
 ├── repositorios
 
-│   └── UsuarioRepository
-│
+  └── UsuarioRepository
+  
 ├── dominio
 
-│   ├── Usuario
+ ├── Usuario
 
-│   └── Role (Enum)
-│
+  └── Role (Enum)
+  
 ├── dto
+     
+   ├── UsuarioRequestDTO
 
-│   ├── UsuarioRequestDTO
-
-│   └── UsuarioResponseDTO
-│
+   └── UsuarioResponseDTO
+   
 ├── excecoes
 
-│   ├── UsuarioNaoEncontradoException
+   ├── UsuarioNaoEncontradoException
 
-│   ├── EmailJaCadastradoException
+   ├── EmailJaCadastradoException
 
-│   ├── RespostaDeErro
+   ├── RespostaDeErro
 
-│   └── ManipuladorDeExcecoesGlobal
-│
+   └── ManipuladorDeExcecoesGlobal
+
+
 └── ProjetoapiApplication
 
 
