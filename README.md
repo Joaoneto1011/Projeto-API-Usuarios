@@ -49,27 +49,32 @@ com.projetoapi
 ├── controllers
 
  └── UsuarioController
- 
+===
+
 ├── services
 
  └── UsuarioService
- 
+===
+
 ├── repositorios
 
   └── UsuarioRepository
-  
+===
+
 ├── dominio
 
  ├── Usuario
 
   └── Role (Enum)
-  
+===
+
 ├── dto
      
    ├── UsuarioRequestDTO
 
    └── UsuarioResponseDTO
-   
+===
+
 ├── excecoes
 
    ├── UsuarioNaoEncontradoException
@@ -79,7 +84,7 @@ com.projetoapi
    ├── RespostaDeErro
 
    └── ManipuladorDeExcecoesGlobal
-
+===
 
 └── ProjetoapiApplication
 
