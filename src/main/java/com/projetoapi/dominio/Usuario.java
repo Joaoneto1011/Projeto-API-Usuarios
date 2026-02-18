@@ -12,13 +12,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario {
 
-    public Usuario(String nome, String email, String senha, Role role) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.role = role;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -47,6 +40,12 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
 
+    public Usuario(String nome, String email, String senha, Role role) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.role = role;
+    }
 
     // Método chamado pelo JPA antes de persistir a entidade no banco.
     // Responsável por definir automaticamente as datas de criação

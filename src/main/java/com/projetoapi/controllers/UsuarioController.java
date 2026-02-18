@@ -59,6 +59,9 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
+    // ===========================
+    // ATUALIZAR USUARIO POR ID
+    // ===========================
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponseDTO> atualizar(
             @PathVariable Long id,

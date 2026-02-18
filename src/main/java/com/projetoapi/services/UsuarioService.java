@@ -92,6 +92,12 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UsuarioNaoEncontradoException("Usuario não encontrado"));
 
+        // Verificando se o novo email já existe para outro usuário
+        if (usuarioRepository.existsByEmail(usuarioDTO.getEmail())
+                && !usuario.getEmail().equals(usuarioDTO.getEmail())) {
+            throw new EmailJaCadastradoException("Email já cadastrado.");
+        }
+
         usuario.setNome(usuarioDTO.getNome());
         usuario.setEmail(usuarioDTO.getEmail());
         usuario.setSenha(usuarioDTO.getSenha());
