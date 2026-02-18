@@ -41,26 +41,37 @@ Database (H2)
 com.projetoapi
 │
 ├── controllers
+
 │   └── UsuarioController
 │
 ├── services
+
 │   └── UsuarioService
 │
 ├── repositorios
+
 │   └── UsuarioRepository
 │
 ├── dominio
+
 │   ├── Usuario
+
 │   └── Role (Enum)
 │
 ├── dto
+
 │   ├── UsuarioRequestDTO
+
 │   └── UsuarioResponseDTO
 │
 ├── excecoes
+
 │   ├── UsuarioNaoEncontradoException
+
 │   ├── EmailJaCadastradoException
+
 │   ├── RespostaDeErro
+
 │   └── ManipuladorDeExcecoesGlobal
 │
 └── ProjetoapiApplication
@@ -93,64 +104,60 @@ com.projetoapi
 
 ---
 
-⭐ Diferenciais Técnicos
+## ⭐ Diferenciais Técnicos
 
-Arquitetura em camadas bem definida
-
-Uso de DTO para proteger a entidade
-
-Tratamento global de exceções com @RestControllerAdvice
-
-Validação com Jakarta Bean Validation
-
-Uso de Optional corretamente
-
-Testes unitários isolando camada de Service
-
-Regra de negócio para evitar email duplicado
-
-Datas automáticas com @PrePersist
-
-Enum para controle de tipo de usuário
+- Arquitetura em camadas bem definida  
+- Uso de DTO para proteger a entidade  
+- Tratamento global de exceções com `@RestControllerAdvice`  
+- Validação com Jakarta Bean Validation  
+- Uso de `Optional` corretamente  
+- Testes unitários isolando camada de Service  
+- Regra de negócio para evitar email duplicado  
+- Datas automáticas com `@PrePersist`  
+- Enum para controle de tipo de usuário  
 
 ---
 
-🌐 Endpoints
+## 🌐 Endpoints
 
-🔹 Listar usuários
-
+### 🔹 Listar usuários
+```http
 GET /usuarios
+```
 
-🔹 Buscar por ID
-
+### 🔹 Buscar por ID
+```http
 GET /usuarios/{id}
+```
 
-🔹 Buscar por email
-
+### 🔹 Buscar por email
+```http
 GET /usuarios/email/{email}
+```
 
-🔹 Criar usuário
-
+### 🔹 Criar usuário
+```http
 POST /usuarios
-
+```
 
 Body:
-
+```json
 {
   "nome": "João",
-  
   "email": "joao@gmail.com",
-  
   "senha": "123456"
 }
+```
 
-🔹 Atualizar usuário
-
+### 🔹 Atualizar usuário
+```http
 PUT /usuarios/{id}
+```
 
-🔹 Deletar usuário
-
+### 🔹 Deletar usuário
+```http
 DELETE /usuarios/{id}
+```
 
 ---
 
@@ -166,100 +173,100 @@ DELETE /usuarios/{id}
 }
 ```
 
-🔐 Regras aplicadas
+## 🔐 Regras Aplicadas
 
-Email único
-
-Senha obrigatória (6 a 10 caracteres)
-
-Role padrão: CLIENTE
-
-Datas de criação e atualização automáticas
-
-Senha não é retornada na resposta da API
+- Email único  
+- Senha obrigatória (6 a 10 caracteres)  
+- Role padrão: CLIENTE  
+- Datas de criação e atualização automáticas  
+- Senha não é retornada na resposta da API  
 
 ---
 
-❌ Padrão de Erros
+## ❌ Padrão de Erros
 
 A API retorna respostas padronizadas no seguinte formato:
 
+```json
 {
   "dataHora": "2026-02-17T18:00:00",
-  
   "status": 404,
-  
   "erro": "Not Found",
-  
   "mensagem": "Usuario não encontrado.",
-  
   "caminho": "/usuarios/10"
 }
+```
 
-Tratamentos implementados:
+### Tratamentos implementados:
 
-400 → Erro de validação
-
-404 → Usuário não encontrado
-
-409 → Email já cadastrado
-
-500 → Erro interno inesperado
+- 400 → Erro de validação  
+- 404 → Usuário não encontrado  
+- 409 → Email já cadastrado  
+- 500 → Erro interno inesperado  
 
 ---
 
-# ▶️ Como Executar o Projeto Localmente
+## ▶️ Como Executar o Projeto Localmente
 
-🔄 1. Clonar o Repositório
+### 🔄 1. Clonar o Repositório
 
+```bash
 git clone https://github.com/Joaoneto1011/Projeto-API-Usuarios.git
+cd Projeto-API-Usuarios
+```
 
-📂 2. Acessar a Pasta do Projeto
+### 🚀 2. Executar a Aplicação
 
-🚀 3. Executar a Aplicação
+#### Opção 1 — Pela IDE (IntelliJ / Eclipse)
 
-Pela IDE (IntelliJ / Eclipse)
+- Abra o projeto como projeto Maven  
+- Localize a classe `ProjetoapiApplication`  
+- Clique em **Run**
 
-Abra o projeto como projeto Maven
+#### Opção 2 — Pelo terminal
 
-Localize a classe ProjetoapiApplication
+```bash
+mvn spring-boot:run
+```
 
-Clique em Run
+---
 
-🌐 4. Acessar a API
+### 🌐 3. Acessar a API
 
 Após iniciar, a aplicação estará disponível em:
 
+```
 http://localhost:8080
-
+```
 
 Exemplo:
 
+```http
 GET http://localhost:8080/usuarios
-
-🗄️ 5. Acessar o Banco H2 (Console Web)
-
-O banco é em memória e pode ser acessado pelo navegador:
-
-http://localhost:8080/h2-console
-
-
-Configurações:
-
-JDBC URL: jdbc:h2:mem:testdb
-
-User: sa
-
-Password: (deixe vazio)
+```
 
 ---
 
-👨‍💻 Autor
+### 🗄️ 4. Acessar o Banco H2 (Console Web)
 
-João Neto
+O banco é em memória e pode ser acessado pelo navegador:
 
-Desenvolvedor Backend Java em formação
+```
+http://localhost:8080/h2-console
+```
 
+Configurações:
+
+- JDBC URL: `jdbc:h2:mem:testdb`
+- User: `sa`
+- Password: (deixe vazio)
+
+---
+
+## 👨‍💻 Autor
+
+**João Neto**  
+Desenvolvedor Backend Java em formação  
 Focado em Spring Boot, arquitetura limpa e boas práticas.
 
 
