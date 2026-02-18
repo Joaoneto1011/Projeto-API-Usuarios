@@ -26,7 +26,13 @@ Projeto desenvolvido com foco em **portfólio profissional**, demonstrando organ
 
 O projeto segue o padrão de arquitetura em camadas:
 
-controller → service → repository → database
+Controller
+   ↓
+Service
+   ↓
+Repository
+   ↓
+Database (H2)
 
 ---
 
@@ -35,29 +41,30 @@ controller → service → repository → database
 com.projetoapi
 │
 ├── controllers
-│ └── UsuarioController
+│   └── UsuarioController
 │
 ├── services
-│ └── UsuarioService
+│   └── UsuarioService
 │
 ├── repositorios
-│ └── UsuarioRepository
+│   └── UsuarioRepository
 │
 ├── dominio
-│ ├── Usuario
-│ └── Role (Enum)
+│   ├── Usuario
+│   └── Role (Enum)
 │
 ├── dto
-│ ├── UsuarioRequestDTO
-│ └── UsuarioResponseDTO
+│   ├── UsuarioRequestDTO
+│   └── UsuarioResponseDTO
 │
 ├── excecoes
-│ ├── UsuarioNaoEncontradoException
-│ ├── EmailJaCadastradoException
-│ ├── RespostaDeErro
-│ └── ManipuladorDeExcecoesGlobal
+│   ├── UsuarioNaoEncontradoException
+│   ├── EmailJaCadastradoException
+│   ├── RespostaDeErro
+│   └── ManipuladorDeExcecoesGlobal
 │
 └── ProjetoapiApplication
+
 
 ---
 
@@ -83,6 +90,67 @@ com.projetoapi
 - ✅ Validação de campos
 - ✅ Validação de email duplicado
 - ✅ Tratamento global de erros
+
+---
+
+⭐ Diferenciais Técnicos
+
+Arquitetura em camadas bem definida
+
+Uso de DTO para proteger a entidade
+
+Tratamento global de exceções com @RestControllerAdvice
+
+Validação com Jakarta Bean Validation
+
+Uso de Optional corretamente
+
+Testes unitários isolando camada de Service
+
+Regra de negócio para evitar email duplicado
+
+Datas automáticas com @PrePersist
+
+Enum para controle de tipo de usuário
+
+---
+
+🌐 Endpoints
+
+🔹 Listar usuários
+
+GET /usuarios
+
+🔹 Buscar por ID
+
+GET /usuarios/{id}
+
+🔹 Buscar por email
+
+GET /usuarios/email/{email}
+
+🔹 Criar usuário
+
+POST /usuarios
+
+
+Body:
+
+{
+  "nome": "João",
+  
+  "email": "joao@gmail.com",
+  
+  "senha": "123456"
+}
+
+🔹 Atualizar usuário
+
+PUT /usuarios/{id}
+
+🔹 Deletar usuário
+
+DELETE /usuarios/{id}
 
 ---
 
@@ -118,9 +186,13 @@ A API retorna respostas padronizadas no seguinte formato:
 
 {
   "dataHora": "2026-02-17T18:00:00",
+  
   "status": 404,
+  
   "erro": "Not Found",
+  
   "mensagem": "Usuario não encontrado.",
+  
   "caminho": "/usuarios/10"
 }
 
@@ -135,5 +207,59 @@ Tratamentos implementados:
 500 → Erro interno inesperado
 
 ---
+
+# ▶️ Como Executar o Projeto Localmente
+
+🔄 1. Clonar o Repositório
+
+git clone https://github.com/Joaoneto1011/Projeto-API-Usuarios.git
+
+📂 2. Acessar a Pasta do Projeto
+
+🚀 3. Executar a Aplicação
+
+Pela IDE (IntelliJ / Eclipse)
+
+Abra o projeto como projeto Maven
+
+Localize a classe ProjetoapiApplication
+
+Clique em Run
+
+🌐 4. Acessar a API
+
+Após iniciar, a aplicação estará disponível em:
+
+http://localhost:8080
+
+
+Exemplo:
+
+GET http://localhost:8080/usuarios
+
+🗄️ 5. Acessar o Banco H2 (Console Web)
+
+O banco é em memória e pode ser acessado pelo navegador:
+
+http://localhost:8080/h2-console
+
+
+Configurações:
+
+JDBC URL: jdbc:h2:mem:testdb
+
+User: sa
+
+Password: (deixe vazio)
+
+---
+
+👨‍💻 Autor
+
+João Neto
+
+Desenvolvedor Backend Java em formação
+
+Focado em Spring Boot, arquitetura limpa e boas práticas.
 
 
