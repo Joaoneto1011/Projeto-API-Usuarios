@@ -262,7 +262,9 @@ Configurações:
 
 **João Neto**  
 Telefone: 34 99891-6565
+
 Desenvolvedor Backend Java em formação  
+
 Focado em Spring Boot, arquitetura limpa e boas práticas.
 
 
