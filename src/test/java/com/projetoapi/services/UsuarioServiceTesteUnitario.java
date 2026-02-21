@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UsuarioServiceTeste {
+class UsuarioServiceTesteUnitario {
 
     @Mock
     private UsuarioRepository usuarioRepository; // Mock do repository para simular comportamento sem banco real
@@ -208,6 +208,9 @@ class UsuarioServiceTeste {
         // Mock: findById retorna usuário existente
         when(usuarioRepository.findById(1L))
                 .thenReturn(Optional.of(usuarioExistente));
+
+        when(usuarioRepository.existsByEmail(dto.getEmail()))
+                .thenReturn(false);
 
         // Mock: save retorna o mesmo usuário
         when(usuarioRepository.save(any()))
